@@ -1,0 +1,76 @@
+/* $color-primary-0: #246C60;
+$color-primary-1: #6CA299;
+$color-primary-2: #43877B;
+$color-primary-3: #0D5146;
+$color-primary-4: #00362D; */
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: "Lucida Grande", "Segoe UI", Ubuntu, Cantarell, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #00362D;
+    color: #6CA299;
+}
+
+.btn {
+    border: none;
+    border-radius: 10px;
+    color: #6CA299;
+    font-size: 14px;
+    background: #0D5146;
+    padding: 6px 10px 6px 10px;
+    text-decoration: none;
+  }
+  
+  .btn:hover {
+    background: #246C60;
+    text-decoration: none;
+  }
+
+  .btn:disabled {
+      background: #ccc;
+  }
+
+.header {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 65px;
+    font-size: 12px;
+    padding-left: 24px;
+    border-bottom: solid 2px #246C60;
+}
+
+#content {
+    position: absolute;
+    top: 65px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 18px;
+}
+
+#files {
+    height: 200px;
+    overflow: scroll;
+}
+
+.sort {
+    margin-top: 20px;
+}
+
+#progress {
+    width: 400px;
+    height: 100px;
+}
+
+#progressBar {
+    height: 25px;
+    width: 0;
+    background-color: #ccc;
+}

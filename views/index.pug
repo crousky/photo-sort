@@ -1,0 +1,60 @@
+doctype html
+html
+    head
+        style
+            include ../css/app.css
+        script.
+            var $ = jQuery = require("jquery");
+    body
+        include head.pug
+        div(id="content")
+            div(class="folder")
+                h3 Source: 
+                button(id="chooseSource" class="btn") Select Source Folder
+                span(id="sourcePath")
+
+            div(class="folder")
+                h3 Target Folder
+                button(id="chooseTarget" class="btn") Select Target Folder
+                span(id="targetPath")
+            div(class="sort")
+                button(id="sortImages" class="btn" disabled="true") Sort Images
+            div(id="progress")
+                span(id="imageCount")
+                span(id="progressBar")
+            div(id="files")
+    script.
+        const app = require('../app/app');
+        $(function() {
+            $("#chooseSource").click(() => {
+                app.emit('open-folder', (folder) => {
+                    $("#sourcePath").html(folder);
+                    app.emit('set-source', folder);
+                });
+            });
+            $("#chooseTarget").click(() => {
+                app.emit('open-folder', (folder) => {
+                    app.emit('set-target', folder);
+                    $("#targetPath").html(folder);
+                });
+            });
+            $("#sortImages").click(() => {
+                app.emit('sort-images');
+            });
+
+            app.on('sort-enabled', (enabled) => {
+                $("#sortImages").prop('disabled', !enabled);
+            });
+            app.on('image-action', (message) => {
+                $("#files").append(`<div>${message}</div>`);
+            });
+            app.on('image-count', count => {
+                $("#imageCount").html('Total Images: ' + count);
+            });
+            app.on('percent-complete', percent => {
+                $('#progressBar').width(`${percent}%`);
+            })
+            app.on('copy-complete', () => {
+                $('#progress').html('Copying Complete!');
+            });
+        });
