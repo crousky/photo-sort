@@ -11,7 +11,7 @@ require('electron-reload')(__dirname);
 let mainWindow;
 
 function createWindow () {
-    mainWindow = new BrowserWindow({ width: 800, height: 600, minWidth: 800, minHeight: 600 });
+    mainWindow = new BrowserWindow({ width: 1024, height: 768, minWidth: 800, minHeight: 600 });
     //mainWindow.webContents.openDevTools();
  
     mainWindow.loadURL(`file://${__dirname}/views/index.pug`);

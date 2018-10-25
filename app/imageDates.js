@@ -1,6 +1,7 @@
 const path = require('path');
 const ExifImage = require('exif').ExifImage;
 const moment = require('moment');
+const fs = require('fs-extra');
 
 const imageDates = function () {
     return {

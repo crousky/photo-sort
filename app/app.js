@@ -61,16 +61,16 @@ const App = function() {
         let imageDate = await imageDates.getImageDate(imagePath);
         let destinationPath = createDestinationPath(imageDate, imagePath);
         if (!fs.existsSync(destinationPath)) {
+            console.log(`copying ${imagePath} to ${destinationPath}`);
             try {
-                await fs.copy(imagePath, destinationPath);
+                let result = await fs.copy(imagePath, destinationPath);
+                console.log(`copy completed result: ${result}`);
                 this.emit('image-action', `copied - ${destinationPath}`);
             } catch (err) {
                 console.log(`[copyImageToTargetOrganizedByDate][error] - ${err}`);
                 this.emit('sort-error', `Error copying ${imagePath} to ${destinationPath}`);
             }
         }
-        state.imagesProcessed++;
-        this.emit('image-processed', state.imagesProcessed);
     };
 
     const sortImages = async function() {
@@ -85,26 +85,21 @@ const App = function() {
 
         this.emit('image-count', imagePaths.length);
 
-        let copyPromises = [];
+        for(let i = 0;i < imagePaths.length; i++) {
+            await copyImageToTargetOrganizedByDate(imagePaths[i]);
+            state.imagesProcessed++;
+            this.emit('copy-count', state.imagesProcessed);
+            this.emit('percent-complete', state.imagesProcessed / state.totalImages);
+        }
 
-        imagePaths.forEach(imagePath => {
-            copyPromises.push(copyImageToTargetOrganizedByDate(imagePath));
-        });
-
-        await Promise.all(copyPromises);
         console.log('copy complete');
         this.emit('copy-complete', true);
-    };
-
-    const imageProcessed = function() {
-        this.emit('percent-complete', state.imagesProcessed / state.totalImages);
     };
 
     this.on('open-folder', openFolder);
     this.on('set-source', setSourcePath);
     this.on('set-target', setTargetPath);
     this.on('sort-images', sortImages);
-    this.on('image-processed', imageProcessed);
 };
 
 util.inherits(App, Emitter);
