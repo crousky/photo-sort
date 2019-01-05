@@ -62,3 +62,7 @@ typings/
 
 #electron output
 *x64/*
+
+#electron package
+*-win32-x64/*
+dist/*

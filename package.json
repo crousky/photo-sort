@@ -2,16 +2,17 @@
   "name": "photo-organizer",
   "version": "1.0.0",
   "description": "Organize and move photos using EXIF data",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "start": "electron main.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "package": "electron-packager ."
+    "package": "electron-packager .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "electron": "^3.0.6",
     "electron-pug": "^1.6.0",
     "electron-reload": "^1.2.5",
     "exif": "^0.6.0",
@@ -23,6 +24,14 @@
     "pug": "^2.0.3"
   },
   "devDependencies": {
+    "electron": "^3.0.8",
+    "electron-builder": "^20.38.4",
     "electron-packager": "^12.2.0"
+  },
+  "build": {
+    "appId": "photo.orgaizer",
+    "mac": {
+      "category": "photography"
+    }
   }
 }
